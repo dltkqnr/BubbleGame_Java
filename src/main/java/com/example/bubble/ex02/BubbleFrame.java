@@ -29,22 +29,41 @@ public class BubbleFrame extends JFrame{
 	
 	private void initListener() {
 		addKeyListener(new KeyAdapter() {
+			//키보드 누를때 이벤트 핸들러
 			@Override
 			public void keyPressed(KeyEvent e) {
 				System.out.println(e.getKeyCode());
 				
 				switch(e.getKeyCode()) {
 					case KeyEvent.VK_LEFT:
-						player.left();
+						if(!player.isLeft()) {
+							player.left();							
+						}
 						break;
 					case KeyEvent.VK_RIGHT:
-						player.right();
+						if(!player.isRight()) {
+							player.right();
+						}
 						break;
 					case KeyEvent.VK_UP:
 						player.up();
 						break;
 				}
 			}
+			
+			//키보드 땔 때 이벤트 핸들러
+			@Override
+			public void keyReleased(KeyEvent e) {
+				switch(e.getKeyCode()) {
+				case KeyEvent.VK_LEFT:
+					player.setLeft(false);
+					break;
+				case KeyEvent.VK_RIGHT:
+					player.setRight(false);
+					break;
+				}
+			}
+			
 		});
 	}
 	
