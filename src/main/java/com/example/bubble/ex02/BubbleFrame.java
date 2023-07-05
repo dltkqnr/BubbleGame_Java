@@ -1,5 +1,8 @@
 package com.example.bubble.ex02;
 
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -12,6 +15,7 @@ public class BubbleFrame extends JFrame{
 	public BubbleFrame() {
 		initObject();
 		initSetting();
+		initListener();
 		setVisible(true);
 	}
 	
@@ -21,6 +25,27 @@ public class BubbleFrame extends JFrame{
 		
 		player = new Player();
 		add(player);
+	}
+	
+	private void initListener() {
+		addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				System.out.println(e.getKeyCode());
+				
+				switch(e.getKeyCode()) {
+					case KeyEvent.VK_LEFT:
+						player.left();
+						break;
+					case KeyEvent.VK_RIGHT:
+						player.right();
+						break;
+					case KeyEvent.VK_UP:
+						player.up();
+						break;
+				}
+			}
+		});
 	}
 	
 	private void initSetting() {
