@@ -29,6 +29,7 @@ public class Player extends JLabel implements Moveable{
 	public Player() {
 		initObject();
 		initSetting();
+		initBackgroundPlayerService();
 	}
 	
 	private void initObject() {
@@ -37,7 +38,7 @@ public class Player extends JLabel implements Moveable{
 	}
 	
 	private void initSetting() {
-		x = 55;
+		x = 80;
 		y = 535;
 		
 		left = false;
@@ -48,6 +49,10 @@ public class Player extends JLabel implements Moveable{
 		this.setIcon(playerR);
 		setSize(50,50);
 		setLocation(x,y);
+	}
+	
+	private void initBackgroundPlayerService() {
+		new Thread(new BackgroundPlayerService(this)).start();
 	}
 
 	@Override
