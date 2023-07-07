@@ -20,6 +20,10 @@ public class Player extends JLabel implements Moveable{
 	private boolean up;
 	private boolean down;
 	
+	//플레이어 속도 상태
+	private final int SPEED = 4;
+	private final int JUMPSPEED = 2;
+	
 	private ImageIcon playerR, playerL;
 	
 	public Player() {
@@ -53,7 +57,7 @@ public class Player extends JLabel implements Moveable{
 		new Thread(()->{
 			while(left) {
 				setIcon(playerL);
-				x = x-1;
+				x = x-SPEED;
 				setLocation(x, y);
 				try {
 					Thread.sleep(10);
@@ -71,7 +75,7 @@ public class Player extends JLabel implements Moveable{
 		new Thread(()->{
 			while(right) {
 				setIcon(playerR);
-				x = x+1;
+				x = x+SPEED;
 				setLocation(x, y);
 				try {
 					Thread.sleep(10);
@@ -82,14 +86,44 @@ public class Player extends JLabel implements Moveable{
 		}).start();
 	}
 
+
 	@Override
 	public void up() {
-
+		System.out.println("up");
+		up = true;
+		new Thread(()->{
+			for(int i=0; i <130/JUMPSPEED; i++) {
+				y = y - JUMPSPEED;
+				setLocation(x,y);
+				try {
+					Thread.sleep(10);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+			
+			up = false;
+			down();
+			
+		}).start();
 	}
 
 	@Override
 	public void down() {
-
+		System.out.println("down");
+		down = true;
+		new Thread(()->{
+			for(int i=0; i<130/JUMPSPEED; i++) {
+				y = y + JUMPSPEED;
+				setLocation(x, y);
+				try {
+					Thread.sleep(10);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+			down = false;
+		}).start();
 	}
 
 }
